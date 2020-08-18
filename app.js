@@ -202,9 +202,6 @@ io.sockets.on('connection', function (socket) {
 /** 构建html页 */
 var express = require("express");
 var htmlApp = express();
-htmlApp.use(express.static("htmlTest"))
-var httpsServer = https.createServer(htmlApp);
-httpsServer.listen(8441);
-
+htmlApp.use(express.static("htmlTest")).listen(8080);
 // //http 静态路由
 // htmlApp.use(express.static("htmlTest")).listen(8080);
