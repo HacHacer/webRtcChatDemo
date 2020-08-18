@@ -25,6 +25,9 @@ var socketIO = require('socket.io');
 // apps.listen(SSL_PORT);
 
 var apps = https.createServer(function(request, response) {
+  response.setHeader('Access-Control-Allow-Origin','*')
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+  response.setHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   console.log((new Date()) + " Received request for " + request.url);
   response.writeHead(404);
   // response.end();
@@ -200,7 +203,7 @@ io.sockets.on('connection', function (socket) {
 var express = require("express");
 var htmlApp = express();
 htmlApp.use(express.static("htmlTest"))
-var httpsServer = https.createServer(options,htmlApp);
+var httpsServer = https.createServer(htmlApp);
 httpsServer.listen(8441);
 
 // //http 静态路由
