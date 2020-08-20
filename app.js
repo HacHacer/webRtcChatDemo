@@ -7,13 +7,13 @@
 //var io = socketIO.listen(app);
 
 //https类
-var https = require('http');
+var http = require('http');
 //文件操作类
 var fs = require('fs');
 //读取密钥和签名证书
 var options = {
-  key: fs.readFileSync('keys/server.key'),
-  cert: fs.readFileSync('keys/server.crt')
+  key: fs.readFileSync('key/server.key'),
+  cert: fs.readFileSync('key/server.crt')
 }
 //socket.io类
 var socketIO = require('socket.io');
@@ -24,8 +24,8 @@ var socketIO = require('socket.io');
 // var SSL_PORT = 8443;
 // apps.listen(SSL_PORT);
 
-var apps = https.createServer(function(request, response) {
-  response.setHeader('Access-Control-Allow-Origin','*')
+var apps = http.createServer(function (request, response) {
+  response.setHeader('Access-Control-Allow-Origin', '*')
   response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
   response.setHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   console.log((new Date()) + " Received request for " + request.url);
@@ -34,7 +34,7 @@ var apps = https.createServer(function(request, response) {
   response.end('Hello World\n');
 });
 
-apps.listen(6502, function() {
+apps.listen(6502, function () {
   console.log((new Date()) + " Server is listening on port 6502");
 });
 
@@ -43,7 +43,7 @@ var io = socketIO.listen(apps);
 //Socket连接监听
 io.sockets.on('connection', function (socket) {
   //socket关闭
-  socket.on('disconnect', function(reason){
+  socket.on('disconnect', function (reason) {
     //room
     // var room = Object.keys(socket.rooms)[1];
     // //socket id
@@ -65,12 +65,12 @@ io.sockets.on('connection', function (socket) {
     //   }
     // }
     var socketId = socket.id;
-    console.log('disconnect: ' + socketId + ' reason:' + reason );
+    console.log('disconnect: ' + socketId + ' reason:' + reason);
     var message = {};
     message.from = socketId;
     message.room = '';
     socket.broadcast.emit('exit', message);
-   });
+  });
 
   /** client->server 信令集*/
   //【createAndJoinRoom】  创建并加入Room中 [room]
@@ -141,7 +141,7 @@ io.sockets.on('connection', function (socket) {
   //【offer】转发offer消息至room其他客户端 [from,to,room,sdp]
   socket.on('offer', function (message) {
     var room = Object.keys(socket.rooms)[1];
-    console.log('Received offer: ' + message.from + ' room:' + room + ' message: ' + JSON.stringify(message) );
+    console.log('Received offer: ' + message.from + ' room:' + room + ' message: ' + JSON.stringify(message));
     //转发【offer】消息至其他客户端
     //根据id找到对应连接
     var otherClient = io.sockets.connected[message.to];
@@ -200,8 +200,10 @@ io.sockets.on('connection', function (socket) {
 
 
 /** 构建html页 */
+const https = require('https');
 var express = require("express");
 var htmlApp = express();
-htmlApp.use(express.static("htmlTest")).listen(8080);
+htmlApp.use(express.static("htmlTest"))
+https.createServer(options, htmlApp).listen(443)
 // //http 静态路由
 // htmlApp.use(express.static("htmlTest")).listen(8080);
