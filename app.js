@@ -12,8 +12,8 @@ var http = require('http');
 var fs = require('fs');
 //读取密钥和签名证书
 var options = {
-  key: fs.readFileSync('key/server.key'),
-  cert: fs.readFileSync('key/server.crt')
+  key: fs.readFileSync('keys/server.key'),
+  cert: fs.readFileSync('keys/server.crt')
 }
 //socket.io类
 var socketIO = require('socket.io');
