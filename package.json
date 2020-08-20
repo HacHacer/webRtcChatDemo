@@ -4,7 +4,8 @@
   "author": "chengshaobo <ckcsb@126.com>",
   "description": "A webRTC live streaming server",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
