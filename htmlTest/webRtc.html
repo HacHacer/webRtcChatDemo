@@ -9,7 +9,7 @@
         /** 信令 注：一条Socket连接*/
         //socket
         //var socket = io('ws://172.16.70.226:8081');
-        var socket = io('ws://47.93.236.248:6502/');
+        var socket = io('wss://47.93.236.248:6502/');
 
         //本地socket id
         var socketId;
@@ -86,8 +86,8 @@
                 pc.ontrack = e => onTrack(pc, socketId, e);
                 if (localStream != null) {
                     //peer设置本地流
-                    localStream.getTracks().forEach(function(track) {
-                         pc.addTrack(track, localStream);
+                    localStream.getTracks().forEach(function (track) {
+                        pc.addTrack(track, localStream);
                     });
                 }
                 //设置获取对端stream数据回调
@@ -323,13 +323,13 @@
 
 <body>
     <input type="text" id="roomName" placeholder="请填写Room名称" />
-    <br/>
+    <br />
     <button id="createAndJoinRoom" onclick="createAndJoinRoom()">createAndJoinRoom</button>
-    <br/>
+    <br />
     <button id="exit" onclick="exit()">exit</button>
-    <br/>
+    <br />
     <video id="localVideo" style='width:200;height:200;' autoplay></video>
-    <br/>
+    <br />
     <div id='remoteDiv'></div>
 </body>
 

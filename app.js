@@ -8,6 +8,7 @@
 
 //https类
 var http = require('http');
+const https = require('https');
 //文件操作类
 var fs = require('fs');
 //读取密钥和签名证书
@@ -24,7 +25,7 @@ var socketIO = require('socket.io');
 // var SSL_PORT = 8443;
 // apps.listen(SSL_PORT);
 
-var apps = http.createServer(function (request, response) {
+var apps = https.createServer(function (request, response) {
   response.setHeader('Access-Control-Allow-Origin', '*')
   response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
   response.setHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
@@ -200,7 +201,6 @@ io.sockets.on('connection', function (socket) {
 
 
 /** 构建html页 */
-const https = require('https');
 var express = require("express");
 var htmlApp = express();
 htmlApp.use(express.static("htmlTest"))
