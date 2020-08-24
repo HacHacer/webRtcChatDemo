@@ -25,7 +25,7 @@ var socketIO = require('socket.io');
 // var SSL_PORT = 8443;
 // apps.listen(SSL_PORT);
 
-var apps = https.createServer(function (request, response) {
+var apps = https.createServer(options, (request, response) => {
   response.setHeader('Access-Control-Allow-Origin', '*')
   response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
   response.setHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
